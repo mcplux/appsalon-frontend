@@ -5,7 +5,8 @@ export default {
   content: [
     './index.html',
     './src/**/*.{vue,js,ts}',
-    './node_modules/vue-tailwind-datepicker/**/*.js'
+    './node_modules/vue-tailwind-datepicker/**/*.js',
+    './formkit.config.js',
   ],
   theme: {
     extend: {
