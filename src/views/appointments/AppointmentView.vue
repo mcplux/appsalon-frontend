@@ -8,7 +8,7 @@ import { formatCurrency } from '@/helpers'
 const appointments = useAppointmentsStore()
 
 const formatter = ref({
-  date: 'DD/MM/YY',
+  date: 'DD/MM/YYYY',
   month: 'MMM',
 })
 

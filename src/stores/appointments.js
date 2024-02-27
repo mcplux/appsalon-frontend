@@ -37,6 +37,7 @@ export const useAppointmentsStore = defineStore('appointments', () => {
   }
 
   async function createAppointment() {
+    console.log(date.value)
     const appointment = {
       services: services.value.map(service => service._id),
       date: convertToISO(date.value),
