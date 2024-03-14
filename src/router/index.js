@@ -12,6 +12,19 @@ const router = createRouter({
       component: HomeView
     },
     {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('@/views/admin/AdminApp.vue'),
+      meta: { requiresAdmin: true },
+      children: [
+        {
+          path: '',
+          name: 'admin-appointments',
+          component: () => import('@/views/admin/AppointmentsView.vue'),
+        }
+      ]
+    },
+    {
       path: '/reservaciones',
       name: 'appointments',
       component: AppointmentsApp,
@@ -93,18 +106,35 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some(url => url.meta.requiresAuth)
-  if(requiresAuth) {
-    try {
-      await AuthAPI.auth()
-      
-      next()
-    } catch (err) {
-      console.log(next({name: 'login'}))
-    }
-  } else {
-    next()
+  if(!requiresAuth) {
+    return next()
   }
 
+  try {
+    const { data } = await AuthAPI.auth()
+    if(!data.admin) {
+      return next()
+    } 
+    
+    return next({name: 'admin'})
+  } catch (err) {
+    return next({name: 'login'})
+  }
+})
+
+router.beforeEach(async (to, from, next) => {
+  const requiresAdmin = to.matched.some(url => url.meta.requiresAdmin)
+  if(!requiresAdmin) {
+    return next()
+  }
+
+  try {
+    await AuthAPI.admin()
+    
+    return next()
+  } catch (err) {
+    return next({name: 'login'})
+  }
 })
 
 export default router
