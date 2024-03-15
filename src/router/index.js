@@ -127,7 +127,7 @@ router.beforeEach(async (to, from, next) => {
     
     return next()
   } catch (err) {
-    return next({name: 'login'})
+    return next({name: 'my-appointments'})
   }
 })
 
