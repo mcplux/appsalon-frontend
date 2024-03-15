@@ -1,16 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import AppointmentsApp from '../views/appointments/AppointmentsApp.vue'
 import AuthAPI from '@/api/AuthAPI'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView
-    },
     {
       path: '/admin',
       name: 'admin',
@@ -25,7 +19,7 @@ const router = createRouter({
       ]
     },
     {
-      path: '/reservaciones',
+      path: '/',
       name: 'appointments',
       component: AppointmentsApp,
       meta: { requiresAuth: true },
